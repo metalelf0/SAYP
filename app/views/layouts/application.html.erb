@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<title>SAYP: <%= @page_title || controller.action_name %></title>
+		<%= stylesheet_link_tag 'scaffold' %>
+		<%= stylesheet_link_tag 'jquery-ui-1.7.2.custom' %>
+		<%= javascript_include_tag :defaults %>
+		<%= yield :head %>
+	</head>
+	<body>
+			
+		<% if !flash[:notice].blank? %>
+			<div class="ui-widget"> 
+				<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+					<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span> 
+					<%=h flash[:notice] %>
+					</p> 
+				</div> 
+			</div> 
+			<br/> 
+		<% end %>
+
+		<% if !flash[:error].blank? %>
+			<div class="ui-widget"> 
+				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
+					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+					<%=h flash[:error] %>
+					</p> 
+				</div> 
+			</div>
+		<% end %>
+			
+			<p id="flash_warning"><%=h flash[:warning] %></p>
+			<%= yield %>
+	</body>
+</html>
