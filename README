@@ -1,4 +1,5 @@
 <!--
+  TODO add aliases for parser phrases in english languages (now only supports italian)
   TODO remove association story -> project (we already have story -> iteration -> project)
   TODO cases for add_story_to_iteration
     - ALREADY EXISTS
