@@ -4,6 +4,7 @@
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+require "lib/string"
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.

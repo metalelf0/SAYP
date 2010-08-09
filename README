@@ -1,3 +1,11 @@
 <!--
-	TODO rimuovere associazione story -> project (c'è già story -> iteration -> project)
+  TODO remove association story -> project (we already have story -> iteration -> project)
+  TODO cases for add_story_to_iteration
+    - ALREADY EXISTS
+      Project | Iteration
+      --------+----------
+      Yes     |  Yes
+      No      |  Yes
+      Yes     |  No
+      No      |  No 
 -->

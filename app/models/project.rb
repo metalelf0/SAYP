@@ -11,12 +11,17 @@ class Project < ActiveRecord::Base
     project
   end
   
-  def add_iteration_for date
-    self.iterations << Iteration.create(
-      :start_date => date.beginning_of_week,
-      :end_date => date.end_of_week
-    )
+  def add_iteration_for date   # TODO: remove this date param, its not used
+    self.iterations << Iteration.create
     self.save
+  end
+
+  def stories
+    stories = []
+    iterations.each do |iteration|
+      stories << iteration.stories
+    end
+    return stories.flatten
   end
   
   def to_s

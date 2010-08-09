@@ -37,14 +37,14 @@ describe Parser do
     out[1].should eql("Project")
   end
   
-  it "should associate stories to project" do
-    out = Parser.parse "Storie per il progetto @Epi: #Prima storia, #Seconda storia, #Ultimissima storia."
-    Project.first.should have(3).stories
-    Project.first.name.should eql("Epi")
-    Story.find_by_title("Prima storia").should_not be_nil
-    Story.find_by_title("Seconda storia").should_not be_nil
-    Story.find_by_title("Ultimissima storia").should_not be_nil
-  end
+  it "should associate stories to project" #TODO: this must be changed, how to add stories to a project? We have iterations now!
+#    out = Parser.parse "Storie per il progetto @Epi: #Prima storia, #Seconda storia, #Ultimissima storia."
+#    Project.first.should have(3).stories
+#    Project.first.name.should eql("Epi")
+#    Story.find_by_title("Prima storia").should_not be_nil
+#    Story.find_by_title("Seconda storia").should_not be_nil
+#    Story.find_by_title("Ultimissima storia").should_not be_nil
+#  end
   
   it "should add an iteration to project when creating it" do
     out = Parser.parse "Oggi è iniziato il progetto @Project."
@@ -55,6 +55,8 @@ describe Parser do
   it "should associate stories to iterations" do
     out  = Parser.parse "Progetto @Epi, iterazione 1: #Prima storia, #Seconda storia"
     out2 = Parser.parse "Progetto @Epi, iterazione 2: #Terza storia"
+    Project.first.should have(2).iterations
+    Project.first.iterations.first.should have(2).stories
     Project.first.should have(3).stories
     Project.first.name.should eql("Epi")
     Story.find_by_title("Prima storia").should_not be_nil

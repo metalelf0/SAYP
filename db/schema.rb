@@ -9,14 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090928060528) do
+ActiveRecord::Schema.define(:version => 20100809081749) do
 
   create_table "iterations", :force => true do |t|
-    t.date     "start_date"
-    t.date     "end_date"
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "number"
   end
 
   create_table "projects", :force => true do |t|
