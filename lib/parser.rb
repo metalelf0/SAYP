@@ -19,16 +19,19 @@ class Parser
           raise "Exception: no format match"
         end
       rescue Exception => e
-        # puts e.message
+        puts e.message
         return nil
       end
     end
 
     def Parser.parse_project_creation phrase
-      return nil if !(phrase.include?("@"))
+      if !(phrase.include?("@"))
+        raise "Project name not found (must start with @)"
+        return nil
+      end
       project_name = phrase.split("@")[1]
       project = Project.create_with_iteration(project_name)
-      return [project, "Project"]
+      return project
     end
 
     def Parser.parse_add_story_to_project phrase
@@ -41,7 +44,7 @@ class Parser
       story_titles.each do |story_title|
         project.stories << Story.find_or_create_by_title(story_title)
       end
-      return [project, "Project"]
+      return project
     end
 
     def Parser.parse_work_entry phrase
@@ -59,7 +62,7 @@ class Parser
       work.remaining = remaining
       work.save!
       
-      return [story, "Story"]
+      return story
     end
 
     def Parser.parse_add_story_to_iteration phrase
@@ -75,6 +78,7 @@ class Parser
         story.iteration = iteration
         story.save
       end
+      return iteration
     end
 
 end

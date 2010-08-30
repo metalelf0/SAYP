@@ -4,8 +4,7 @@ class Project < ActiveRecord::Base
   has_many :iterations
   
   def Project.create_with_iteration project_name
-    return nil if Project.find_by_name(project_name)
-    project = Project.create(:name => project_name)
+    project = Project.find_or_create_by_name(project_name)
     project.add_iteration_for(Date.today)
     project.save
     project

@@ -10,7 +10,7 @@ describe Parser do
   end
 
   it "should correctly parse a phrase about a beginning story" do
-    out = Parser.parse "@Tizio e @Caio hanno lavorato alla storia #Prima Storia !10 pomodori. Ne mancano altri %10."
+    edited_story = Parser.parse "@Tizio e @Caio hanno lavorato alla storia #Prima Storia !10 pomodori. Ne mancano altri %10."
     Story.count.should eql(1)
     story = Story.first
     story.title.should eql("Prima Storia")
@@ -25,16 +25,14 @@ describe Parser do
     caio.should_not be_nil
     work.users.should include(tizio, caio)
     tizio.works.should include(work)
-    out[0].should eql(Story.first)
-    out[1].should eql("Story")
+    edited_story.should eql(Story.first)
   end
 
   it "should parse a phrase to create a project" do
-    out = Parser.parse "Oggi è iniziato il progetto @Epi."
+    edited_project = Parser.parse "Oggi è iniziato il progetto @Epi."
     Project.count.should eql(1)
     Project.first.name.should eql("Epi")
-    out[0].should eql(Project.first)
-    out[1].should eql("Project")
+    edited_project.should eql(Project.first)
   end
   
   it "should associate stories to project" #TODO: this must be changed, how to add stories to a project? We have iterations now!
