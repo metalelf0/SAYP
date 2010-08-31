@@ -35,15 +35,16 @@ describe Parser do
     edited_project.should eql(Project.first)
   end
   
-  it "should associate stories to project" #TODO: this must be changed, how to add stories to a project? We have iterations now!
-#    out = Parser.parse "Storie per il progetto @Epi: #Prima storia, #Seconda storia, #Ultimissima storia."
-#    Project.first.should have(3).stories
-#    Project.first.name.should eql("Epi")
-#    Story.find_by_title("Prima storia").should_not be_nil
-#    Story.find_by_title("Seconda storia").should_not be_nil
-#    Story.find_by_title("Ultimissima storia").should_not be_nil
-#  end
-  
+  it "should associate stories to project" do
+    out = Parser.parse "Storie per il progetto @Epi: #Prima storia, #Seconda storia, #Ultimissima storia."
+    Project.first.should have(3).stories
+    Project.first.should have(0).planned_stories # there are still no stories associated to iterations
+    Project.first.name.should eql("Epi")
+    Story.find_by_title("Prima storia").should_not be_nil
+    Story.find_by_title("Seconda storia").should_not be_nil
+    Story.find_by_title("Ultimissima storia").should_not be_nil
+  end
+          
   it "should add an iteration to project when creating it" do
     out = Parser.parse "Oggi è iniziato il progetto @Project."
     Project.count.should eql(1)
@@ -55,12 +56,21 @@ describe Parser do
     out2 = Parser.parse "Progetto @Epi, iterazione 2: #Terza storia"
     Project.first.should have(2).iterations
     Project.first.iterations.first.should have(2).stories
-    Project.first.should have(3).stories
+    Project.first.should have(3).planned_stories
+    Project.first.should have(3).stories # stories must be associated to project backlog, too
+    
     Project.first.name.should eql("Epi")
     Story.find_by_title("Prima storia").should_not be_nil
     Story.find_by_title("Seconda storia").should_not be_nil
     Story.find_by_title("Terza storia").should_not be_nil
     Project.first.iterations.count.should eql(2)
+  end
+  
+  it "should not create duplicate iterations when adding stories to existing iteration" do
+    out  = Parser.parse "Progetto @Epi, iterazione 1: #Prima storia, #Seconda storia"
+    out2 = Parser.parse "Progetto @Epi, iterazione 1: #Terza storia"
+    Project.first.name.should eql("Epi")
+    Project.first.should have(1).iteration
   end
 
   it "should fail gracefully" do

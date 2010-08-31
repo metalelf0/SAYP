@@ -10,12 +10,22 @@ class Project < ActiveRecord::Base
     project
   end
   
+  def iteration_number number
+    already_existing = self.iterations.detect { |it| it.number == number.to_i }
+    if already_existing
+      return already_existing
+    else
+      new_iteration = Iteration.create(:number => number)
+      self.iterations << new_iteration
+      return new_iteration
+    end
+  end
+  
   def add_iteration_for date   # TODO: remove this date param, its not used
     self.iterations << Iteration.create
-    self.save
   end
 
-  def stories
+  def planned_stories
     stories = []
     iterations.each do |iteration|
       stories << iteration.stories

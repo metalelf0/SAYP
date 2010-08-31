@@ -19,7 +19,6 @@ class Parser
           raise "Exception: no format match"
         end
       rescue Exception => e
-        puts e.message
         return nil
       end
     end
@@ -37,9 +36,7 @@ class Parser
     def Parser.parse_add_story_to_project phrase
       # Storie per il progetto @Epi: #Prima storia, #Seconda storia, #Ultimissima storia
       project_name = phrase.split(" ").select {|token| token.start_with?("@") }.first.gsub("@", "").gsub(":", "")
-      puts "Creating project with name #{project_name}"
       project = Project.find_or_create_by_name(project_name)
-      puts project.inspect
       story_titles = phrase.split(": ")[1].gsub(", ", "").split("#").reject { |el| el.blank? }
       story_titles.each do |story_title|
         project.stories << Story.find_or_create_by_title(story_title)
@@ -67,16 +64,17 @@ class Parser
 
     def Parser.parse_add_story_to_iteration phrase
       # Progetto @Epi, iterazione 1: #Prima storia, #Seconda storia
-      story_names = phrase.split(":").last.split("#").map {|token| token.remove_ending(" ") }.map {|token| token.remove_ending(",") }
-      story_names.delete("")
+      story_titles = phrase.split(":").last.split("#").map {|token| token.remove_ending(" ") }.map {|token| token.remove_ending(",") }
+      story_titles.delete("")
       project_name = phrase.split("@")[1].split(",")[0]
       iteration_number = phrase.split(":")[0].split("iterazione ")[1]
       project = Project.find_or_create_by_name(project_name)
-      iteration = Iteration.create(:project => project, :number => iteration_number)
-      story_names.each do |story_name|
-        story =       Story.find_or_create_by_title(story_name)
+      iteration = project.iteration_number(iteration_number)
+      story_titles.each do |story_title|
+        story = Story.find_or_create_by_title(story_title)
         story.iteration = iteration
         story.save
+        project.stories << Story.find_or_create_by_title(story_title)
       end
       return iteration
     end

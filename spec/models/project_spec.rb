@@ -9,10 +9,10 @@ describe Project do
     Iteration.delete_all
   end
 
-  it "should add an iteration for today" do
-    project = Project.create(:name => "Sample")
-    project.add_iteration_for(Date.today)
-    project.iterations.count.should eql(1)
+  it "should retrieve or create iteration given a number" do
+    project = Project.create(:name => "sample project")
+    iteration = project.iteration_number(1)
+    project.should have(1).iteration
   end
  
 end
