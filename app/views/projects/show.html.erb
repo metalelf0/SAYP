@@ -1,6 +1,9 @@
 <p>
   <b>Name:</b>
   <%=h @project.name %>
+  <% @project.iterations.each do |iteration| %>
+    <p class="iteration_number">Iteration <%= iteration.number %></p>
+  <% end %>
 </p>
 
 
