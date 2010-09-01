@@ -6,7 +6,6 @@ describe "/projects/new.html.erb" do
   before(:each) do
     assigns[:project] = stub_model(Project,
       :new_record? => true,
-      :number => 1,
       :name => "value for name"
     )
   end
@@ -15,7 +14,6 @@ describe "/projects/new.html.erb" do
     render
 
     response.should have_tag("form[action=?][method=post]", projects_path) do
-      with_tag("input#project_number[name=?]", "project[number]")
       with_tag("input#project_name[name=?]", "project[name]")
     end
   end
