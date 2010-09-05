@@ -1,6 +1,5 @@
 <!--
   TODO add aliases for parser phrases in english languages (now only supports italian)
-  TODO remove association story -> project (we already have story -> iteration -> project)
   TODO cases for add_story_to_iteration
     - ALREADY EXISTS
       Project | Iteration
@@ -9,4 +8,13 @@
       No      |  Yes
       Yes     |  No
       No      |  No 
+
+  TODO convert views to HAML
+
+I decided to keep the project.stories association. We'll handle it this way:
+  - project.stories will return all the stories associated to the project, even the ones currently in the backlog but not scheduled for any iteration
+  - project.planned_stories will return the stories of this project that were planned for any iteration
+
 -->
+
+
