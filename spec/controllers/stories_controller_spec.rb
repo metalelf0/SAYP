@@ -7,4 +7,9 @@ describe StoriesController do
     get :index, :updated_element_type => "Story", :updated_element => "11"
   end
 
+  it "should show a story" do
+    Story.should_receive(:find).with("1")
+    get :show, :id => "1"
+  end
+
 end
