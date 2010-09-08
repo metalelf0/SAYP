@@ -32,4 +32,15 @@ describe Story do
     Story.first.workers["@Sempronio"].should eql(15)
   end
 
+  it "should fetch project name from its project" do
+    project = mock_model(Project, :name => "sample")
+    story = Story.new(:project => project)
+    story.project_name.should == "sample"
+  end
+
+  it "should not have problems fetching project name, when it has no project" do
+    story = Story.new(:project => nil)
+    story.project_name.should be_nil 
+  end
+
 end

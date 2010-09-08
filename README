@@ -10,6 +10,7 @@
       No      |  No 
 
   TODO convert views to HAML
+  TODO add support to multi-iteration stories (story.iterations instead of story.iteration)
 
 I decided to keep the project.stories association. We'll handle it this way:
   - project.stories will return all the stories associated to the project, even the ones currently in the backlog but not scheduled for any iteration

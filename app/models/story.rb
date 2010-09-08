@@ -27,5 +27,8 @@ class Story < ActiveRecord::Base
     "Story: #{self.title}<br/>#{self.workers.inspect}<br/>Pomodori totali: #{self.total_pomodori_spent}"
   end
 
+  def project_name
+    self.project ? self.project.name : nil
+  end
 
 end
