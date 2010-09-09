@@ -39,7 +39,9 @@ class Parser
       project = Project.find_or_create_by_name(project_name)
       story_titles = phrase.split(": ")[1].gsub(", ", "").split("#").reject { |el| el.blank? }
       story_titles.each do |story_title|
-        project.stories << Story.find_or_create_by_title(story_title)
+        story = Story.find_or_create_by_title(story_title)
+        story.status = Story::TODO; story.save
+        project.stories << story
       end
       return project
     end

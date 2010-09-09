@@ -41,9 +41,12 @@ describe Parser do
     Project.first.should have(3).stories
     Project.first.should have(0).planned_stories # there are still no stories associated to iterations
     Project.first.name.should eql("Epi")
-    Story.find_by_title("Prima storia").should_not be_nil
-    Story.find_by_title("Seconda storia").should_not be_nil
-    Story.find_by_title("Ultimissima storia").should_not be_nil
+    story_names = ["Prima storia", "Seconda storia", "Ultimissima storia"]
+    story_names.each do |title|
+      story = Story.find_by_title(title)
+      story.should_not be_nil
+      story.status.should == "Todo"
+    end
   end
           
   it "should add an iteration to project when creating it" do

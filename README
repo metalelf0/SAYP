@@ -12,7 +12,7 @@
   TODO convert views to HAML
   TODO add story status: TODO, IN PROGRESS, TO VERIFY, DONE
     DONE work on a story sets it to IN PROGRESS
-    TODO add story to project sets it to TODO
+    DONE add story to project sets it to TODO
     TODO add work to story should set story to TO VERIFY when remaining is 0
     TODO add parser entry to set story to DONE (or maybe, to set all stories of previous iteration to DONE)
   TODO add support to multi-iteration stories (story.iterations instead of story.iteration)

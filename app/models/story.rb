@@ -3,9 +3,9 @@ class Story < ActiveRecord::Base
   has_many :works
   belongs_to :project
   belongs_to :iteration
-  
+
   IN_PROGRESS="In progress"
-  
+  TODO = "Todo"  
     
   def total_pomodori_spent
     works.inject(0) { |total, work| total += work.pomodori }
