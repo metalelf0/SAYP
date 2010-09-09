@@ -49,6 +49,7 @@ class Parser
       story_title = phrase.split("#")[1].split(" !")[0].strip
       pomodori = phrase.split("#")[1].split("!")[1].to_i
       story = Story.find_or_create_by_title(story_title)
+      story.status = Story::IN_PROGRESS; story.save
       work = Work.create(:pomodori => pomodori, :story => story)
       users = phrase.split(" ").select { |token| token.start_with?("@") }.each do |user_alias|
         user = User.find_or_create_by_alias(user_alias)

@@ -26,6 +26,7 @@ describe Parser do
     work.users.should include(tizio, caio)
     tizio.works.should include(work)
     edited_story.should eql(Story.first)
+    edited_story.status.should == "In progress"
   end
 
   it "should parse a phrase to create a project" do
