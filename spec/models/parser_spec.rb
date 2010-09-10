@@ -29,6 +29,11 @@ describe Parser do
     edited_story.status.should == "In progress"
   end
 
+  it "should set a story to TO VERIFY when remaining is 0" do
+    edited_story = Parser.parse "@Tizio e @Caio hanno lavorato alla storia #Prima Storia !10 pomodori. Ne mancano altri %0."
+    edited_story.status.should == "To verify"
+  end
+
   it "should parse a phrase to create a project" do
     edited_project = Parser.parse "Oggi è iniziato il progetto @Epi."
     Project.count.should eql(1)

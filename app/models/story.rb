@@ -6,6 +6,7 @@ class Story < ActiveRecord::Base
 
   IN_PROGRESS="In progress"
   TODO = "Todo"  
+  TO_VERIFY = "To verify"  
     
   def total_pomodori_spent
     works.inject(0) { |total, work| total += work.pomodori }
