@@ -1,10 +1,7 @@
 # Be sure to restart your server when you modify this file
 
-# Specifies gem version of Rails to use when vendor/rails is not present
-
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
-require "lib/string"
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -15,10 +12,6 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'rspec-rails', :lib => false
-  config.gem 'rspec', :lib => false
-  # config.gem 'cucumber'
-  config.gem 'webrat'
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"

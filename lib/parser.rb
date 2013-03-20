@@ -69,7 +69,7 @@ class Parser
 
     def Parser.parse_add_story_to_iteration phrase
       # Progetto @Epi, iterazione 1: #Prima storia, #Seconda storia
-      story_titles = phrase.split(":").last.split("#").map {|token| token.remove_ending(" ") }.map {|token| token.remove_ending(",") }
+      story_titles = phrase.split(":").last.split("#").map { |story_name| story_name.gsub(/[, ]+$/, "") }
       story_titles.delete("")
       project_name = phrase.split("@")[1].split(",")[0]
       iteration_number = phrase.split(":")[0].split("iterazione ")[1]

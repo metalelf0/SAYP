@@ -1,7 +1,8 @@
 class StoriesController < ApplicationController
  
  def index
-    @updated_element = Kernel.const_get(params[:updated_element_type]).find(params[:updated_element]) if params[:updated_element_type]
+   @updated_element = nil
+   @updated_element = Kernel.const_get(params[:updated_element_type]).find(params[:updated_element]) if params[:updated_element_type]
  end
 
  def parse
@@ -12,7 +13,7 @@ class StoriesController < ApplicationController
        :updated_element => updated_element, 
        :updated_element_type => updated_element.class.name 
    else
-     flash[:error] = "Devi inserire una frase valida" 
+     flash[:error] = "Devi inserire una frase valida"
      redirect_to :action => :index
    end
    
